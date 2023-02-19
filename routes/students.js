@@ -13,13 +13,9 @@ router.get('/', async (req, res) => {
     }
 })
 
-//Getting one
-router.get('/:id', (req, res) => {
-    res.send(req.params.id)
-})
 
 
-//Creating one
+//Creating one new student
 router.post('/', async (req, res) => {
     const student = new Student({
         fullName: req.body.fullName,
