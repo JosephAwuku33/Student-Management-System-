@@ -11,13 +11,28 @@ app.use(express.json())
 
 app.use('/students', studentsRouter)
 
-mongoose.connect( DATABASE_URL, 
-    { 
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-     }, () => {
-        console.log("Database connected")
-    })
+mongoose.set('strictQuery', true )
+
+async function DBCONNECT(){
+    try {
+        await mongoose.connect( DATABASE_URL, 
+            { 
+                autoIndex:true,
+                
+             }, () => {
+                console.log("Database connected")
+            })
+    } catch (err){
+        console.log(err)
+    }
+}
 
 
-app.listen( PORT , () => console.log("Server Started"))
+app.listen( PORT , async () => {
+    try{
+        await DBCONNECT();
+        console.log("Server started")
+    } catch (err){
+        console.log(err)
+    }
+})

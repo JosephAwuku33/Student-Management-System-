@@ -5,7 +5,6 @@ const Student = require('../models/Student')
 //Getting all students
 router.get('/', async (req, res) => {
     try {
-        res.send("Student list")
         const students = await Student.find();
         res.json(students);
     }
